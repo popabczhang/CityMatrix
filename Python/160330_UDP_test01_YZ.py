@@ -67,12 +67,13 @@ sock.sendto(MESSAGE, (UDP_IP, UDP_PORT))
 
 while True: 
     MESSAGE = ""
-    numPEV = 100
+    numPEV = 1000
+    s = 0.1
     for i in range(numPEV):
-        MESSAGE += str(count/3) + "," + str(count/3 + 3 * i) + "," + "0"
+        MESSAGE += str(count * s) + "," + str(count * s + 3 * i) + "," + "0"
         if i < numPEV - 1: 
             MESSAGE += "\n"
     print "message: \n", MESSAGE
     sock.sendto(MESSAGE, (UDP_IP, UDP_PORT))
     count += 1
-    time.sleep(.05)
+    time.sleep(.02)
