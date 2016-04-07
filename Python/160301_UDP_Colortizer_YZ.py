@@ -1,8 +1,8 @@
 """
-Realtime Simulator
+CityMatrix
 
-written by Yan "Ryan" Zhang <ryanz@mit.edu>
-for MIT Media Lab, Changing Place Group, CityScope Project
+written by "Ryan" Yan Zhang <ryanz@mit.edu>
+for MIT Media Lab, Changing Place Group
 March.1st.2016
 """
 

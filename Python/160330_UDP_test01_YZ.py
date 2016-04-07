@@ -1,8 +1,8 @@
 """
-Realtime Simulator
+CityMatrix
 
-written by Yan "Ryan" Zhang <ryanz@mit.edu>
-for MIT Media Lab, Changing Place Group, CityMatrix Project
+written by "Ryan" Yan Zhang <ryanz@mit.edu>
+for MIT Media Lab, Changing Place Group
 March.30th.2016
 """
 
@@ -55,7 +55,7 @@ import time
 count = 0
 
 UDP_IP = "127.0.0.1"
-UDP_PORT = 7001
+UDP_PORT = 7002
 MESSAGE = "Hello, World!"
 
 print "UDP target IP:", UDP_IP
@@ -67,7 +67,7 @@ sock.sendto(MESSAGE, (UDP_IP, UDP_PORT))
 
 while True: 
     MESSAGE = ""
-    numPEV = 1000
+    numPEV = 200
     s = 0.1
     for i in range(numPEV):
         MESSAGE += str(count * s) + "," + str(count * s + 3 * i) + "," + "0"
@@ -76,4 +76,4 @@ while True:
     print "message: \n", MESSAGE
     sock.sendto(MESSAGE, (UDP_IP, UDP_PORT))
     count += 1
-    time.sleep(.02)
+    time.sleep(.05)
