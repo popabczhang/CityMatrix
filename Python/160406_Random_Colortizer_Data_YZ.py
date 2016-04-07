@@ -43,7 +43,7 @@ sock = socket.socket(socket.AF_INET, # Internet
 while True: 
     Data = "gridIndex\t0\ngridExtents\t16\t16\nIDMax\t15\ndockID\t-1\ndockRotation\t0\nslider1\t1.0\ntoggle1\t1\ntoggle2\t0\ntoggle3\t0\n"
     for i in range(16):
-    	for j in range(16):
+        for j in range(16):
             Data += str(random.randint(-1,7))+"\t"+str(i)+"\t"+str(j)+"\t"+str(random.randint(0,3) * 90)+"\n"
     print "data(count = "+str(count)+"): \n"+Data
     sock.sendto(Data, (UDP_IP, UDP_PORT))
