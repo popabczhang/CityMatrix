@@ -14,9 +14,9 @@ import math
 
 
 # variables
-layerName = "test scene 01"
+layerName = "test scene 02"
 cellSize = 62.5
-outputPath = "C:/Users/RYAN/Documents/GitHub/CityMatrix/Data/colortizer_data_rhino_YZ.txt"
+outputPath = "C:/Users/RYAN/Documents/GitHub/CityMatrix/Data/colortizer_data_rhino_02_YZ.txt"
 
 
 # functions
