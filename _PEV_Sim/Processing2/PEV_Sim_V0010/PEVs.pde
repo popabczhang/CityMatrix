@@ -23,10 +23,10 @@ class PEVs {
 
   void initiate(int _totalPEVNum) {
 
-    img_PEV_EMPTY = loadImage("PEV_EMPTY_300DPI.png");
-    img_PEV_PSG = loadImage("PEV_PSG_300DPI.png");
-    img_PEV_PKG = loadImage("PEV_PKG_300DPI.png");
-    img_PEV_FULL = loadImage("PEV_PSG AND PKG_300DPI.png");
+    img_PEV_EMPTY = loadImage("MAP_PEV_EMPTY.png");
+    img_PEV_PSG = loadImage("MAP_PEV_PSG.png");
+    img_PEV_PKG = loadImage("MAP_PEV_PKG.png");
+    img_PEV_FULL = loadImage("MAP_PEV_PSG AND PKG.png");
     imgs_PEV = new ArrayList<PImage>();
     imgs_PEV.add(img_PEV_EMPTY);
     imgs_PEV.add(img_PEV_PSG);

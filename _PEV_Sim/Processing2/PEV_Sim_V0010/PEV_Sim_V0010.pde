@@ -34,10 +34,10 @@ void setup() {
 
   smooth(8); //2,3,4, or 8
 
-    img_BG = loadImage("BG_ALL_75DPI.png");
+    img_BG = loadImage("MAP_BG_ALL.png");
 
   // add roads
-  roadPtFile = "RD_CRV_PTS_151231.txt";
+  roadPtFile = "RD_151231.txt";
   roads = new Roads();
   roads.addRoadsByRoadPtFile(roadPtFile);
 
