@@ -6,9 +6,9 @@ PGraphics pgWaleed;
 ///////////////////////////////////////////////////////////////////////////////////////////////////////
 
 void setup(){
-  size(2000,2000);
-  pgWaleed = createGraphics(width, height);
-  PImage img = loadImage("MAP_sidewalk_buffer_2000pxl.png");
+  size(800,800);
+  pgWaleed = createGraphics(800, 800);
+  PImage img = loadImage("MAP_sidewalk_buffer_800pxl.png");
   img.loadPixels();
   pix = img.pixels;
   agent = new ArrayList<Agent>();
@@ -89,7 +89,7 @@ class Agent{
   }
   
   void applyBehaviors(ArrayList agents) {
-    agentLoc = pix[(int)abs(location.y%height)*height + (int)location.x];    
+    agentLoc = pix[(int)abs(location.y%800)*800 + (int)location.x];    
     if (agentLoc == -1){
         PVector wand = new PVector();
         wand= wander();
@@ -197,7 +197,7 @@ class Agent{
       steer.cross(velocity);
       steer.add(acceleration);
       steer.mult(random(1.0,20.0));//steer = PVector.add(steer, rndmV);
-//      newagentLoc = pix[(int)abs(location.y%height)*height + (int)location.x];
+//      newagentLoc = pix[(int)abs(location.y%800)*800 + (int)location.x];
 //      if (newagentLoc == -1){
 //        seek(steer);
 //      }
@@ -231,10 +231,10 @@ class Agent{
   }
 
   void borders() {
-    if (location.x < -r) location.x = width+r;
-    if (location.y < -r) location.y = height+r;
-    if (location.x > width+r) location.x = -r;
-    if (location.y > height+r) location.y = -r;
+    if (location.x < -r) location.x = 800+r;
+    if (location.y < -r) location.y = 800+r;
+    if (location.x > 800+r) location.x = -r;
+    if (location.y > 800+r) location.y = -r;
   }
   
   float mag2(PVector v) {

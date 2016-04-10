@@ -1,7 +1,7 @@
-// CityMatrix PEV Simulation v0020
+// CityMatrix Agents
 // for MIT Media Lab, Changing Place Group
 
-// by "Ryan" Yan Zhang <ryanz@mit.edu>
+// by "Ryan" Yan Zhang <ryanz@mit.edu>, Waleed
 // April.9th.2016
 
 
@@ -32,7 +32,7 @@ PGraphics pgOffscreen;
 // keystone surface and pgOffscreen:
 int resPgOffscreen = 1600;
 // PEV pgRyan: 1920 x 1920
-// pgWaleed: 800 x 800 ?
+// pgWaleed: 800 x 800
 
 // tab PEV
 float maxSpeedKPH = 200.0; //units: kph  20.0 kph
@@ -78,6 +78,11 @@ int h = 14;
 int l = 2;
 int spacing = 4;
 
+// human interation
+color[] pix;
+ArrayList<Agent> agent;
+PGraphics pgWaleed;
+
 
 void setup() {
   
@@ -107,6 +112,24 @@ void setup() {
   PEVs = new PEVs();
   PEVs.initiate(totalPEVNum);
   
+  // Human Interation setup
+  pgWaleed = createGraphics(800, 800);
+  PImage img = loadImage("MAP_sidewalk_buffer_800pxl.png");
+  img.loadPixels();
+  pix = img.pixels;
+  agent = new ArrayList<Agent>();
+  for (int i = 0; i < 300; i++) {
+    newAgent(559,643,1);
+    //newAgent(351,452,1);
+    newAgent(358,542,1);
+    //newAgent(107,95,1);
+  }
+//    for (int i = 0; i < 1; i++) {
+//    newAgent(557,642,2);
+//    //newAgent(352,450,2);
+//    newAgent(358,540,2);
+//    //newAgent(105,93,2);
+//  }
   
   
 }
@@ -139,12 +162,23 @@ void draw() {
   //image(pgRyan, 0, 0, 1080, 1080);
   
   
+  // Human Interation draw
+  pgWaleed.beginDraw();
+  //pgWaleed.background(0);
+  pgWaleed.clear();
+  for (Agent a : agent) {
+    a.applyBehaviors(agent);
+    a.run();
+  }
+  pgWaleed.endDraw();
+  
+  
   // keystone draw
-  //PVector surfaceMouse = surface.getTransformedMouse();
   pgOffscreen.beginDraw();
   //pgOffscreen.background(0);
   pgOffscreen.clear();
   pgOffscreen.image(pgRyan, 0, 0, resPgOffscreen, resPgOffscreen);
+  pgOffscreen.image(pgWaleed, 0, 0, resPgOffscreen, resPgOffscreen); 
   pgOffscreen.endDraw();
   surface.render(pgOffscreen);
   
@@ -178,4 +212,22 @@ void draw() {
   
 }
 
-
+void mousePressed(){
+  PVector surfaceMouse = surface.getTransformedMouse();
+  newAgent(surfaceMouse.x/2, surfaceMouse.y/2, 2);
+  newAgent(surfaceMouse.x/2, surfaceMouse.y/2, 1);
+  newAgent(surfaceMouse.x/2, surfaceMouse.y/2, 2);
+  newAgent(surfaceMouse.x/2, surfaceMouse.y/2, 1);
+  newAgent(surfaceMouse.x/2, surfaceMouse.y/2, 2);
+  newAgent(surfaceMouse.x/2, surfaceMouse.y/2, 1);
+  newAgent(surfaceMouse.x/2, surfaceMouse.y/2, 2);
+  newAgent(surfaceMouse.x/2, surfaceMouse.y/2, 1);
+  newAgent(surfaceMouse.x/2, surfaceMouse.y/2, 2);
+  newAgent(surfaceMouse.x/2, surfaceMouse.y/2, 1);
+  newAgent(surfaceMouse.x/2, surfaceMouse.y/2, 2);
+  newAgent(surfaceMouse.x/2, surfaceMouse.y/2, 1);
+  newAgent(surfaceMouse.x/2, surfaceMouse.y/2, 2);
+  newAgent(surfaceMouse.x/2, surfaceMouse.y/2, 1);
+  newAgent(surfaceMouse.x/2, surfaceMouse.y/2, 2);
+  newAgent(surfaceMouse.x/2, surfaceMouse.y/2, 1);
+}

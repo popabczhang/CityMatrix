@@ -1,61 +1,10 @@
-color[] pix;
-ArrayList<Agent> agent;
-PGraphics pgWaleed;
 
 ///////////////////////////////////////////////////////////////////////////////////////////////////////
 ///////////////////////////////////////////////////////////////////////////////////////////////////////
 
-void setup(){
-  size(2000,2000);
-  pgWaleed = createGraphics(width, height);
-  PImage img = loadImage("MAP_sidewalk_buffer_2000pxl.png");
-  img.loadPixels();
-  pix = img.pixels;
-  agent = new ArrayList<Agent>();
-  for (int i = 0; i < 300; i++) {
-    newAgent(559,643,1);
-    //newAgent(351,452,1);
-    newAgent(358,542,1);
-    //newAgent(107,95,1);
-  }
-//    for (int i = 0; i < 1; i++) {
-//    newAgent(557,642,2);
-//    //newAgent(352,450,2);
-//    newAgent(358,540,2);
-//    //newAgent(105,93,2);
-//  }
-}
 
-void draw(){
-  pgWaleed.beginDraw();
-  pgWaleed.background(0);
-  for (Agent a : agent) {
-  a.applyBehaviors(agent);
-  a.run();
-  }
-  pgWaleed.endDraw();
-  image(pgWaleed, 0, 0); 
-}
-void mousePressed(){
-  newAgent(mouseX, mouseY, 2);
-  newAgent(mouseX, mouseY, 1);
-  newAgent(mouseX, mouseY, 2);
-  newAgent(mouseX, mouseY, 1);
-  newAgent(mouseX, mouseY, 2);
-  newAgent(mouseX, mouseY, 1);
-  newAgent(mouseX, mouseY, 2);
-  newAgent(mouseX, mouseY, 1);
-  newAgent(mouseX, mouseY, 2);
-  newAgent(mouseX, mouseY, 1);
-  newAgent(mouseX, mouseY, 2);
-  newAgent(mouseX, mouseY, 1);
-  newAgent(mouseX, mouseY, 2);
-  newAgent(mouseX, mouseY, 1);
-  newAgent(mouseX, mouseY, 2);
-  newAgent(mouseX, mouseY, 1);
-}
 
-void newAgent( int x,int y, int _colr) {
+void newAgent( float x,float y, int _colr) {
   int colr = _colr;
   float maxspeed = random(0.5,4.0);
   float maxforce = .01;
@@ -89,7 +38,7 @@ class Agent{
   }
   
   void applyBehaviors(ArrayList agents) {
-    agentLoc = pix[(int)abs(location.y%height)*height + (int)location.x];    
+    agentLoc = pix[(int)abs(location.y%800)*800 + (int)location.x];    
     if (agentLoc == -1){
         PVector wand = new PVector();
         wand= wander();
@@ -197,7 +146,7 @@ class Agent{
       steer.cross(velocity);
       steer.add(acceleration);
       steer.mult(random(1.0,20.0));//steer = PVector.add(steer, rndmV);
-//      newagentLoc = pix[(int)abs(location.y%height)*height + (int)location.x];
+//      newagentLoc = pix[(int)abs(location.y%800)*800 + (int)location.x];
 //      if (newagentLoc == -1){
 //        seek(steer);
 //      }
@@ -231,10 +180,10 @@ class Agent{
   }
 
   void borders() {
-    if (location.x < -r) location.x = width+r;
-    if (location.y < -r) location.y = height+r;
-    if (location.x > width+r) location.x = -r;
-    if (location.y > height+r) location.y = -r;
+    if (location.x < -r) location.x = 800+r;
+    if (location.y < -r) location.y = 800+r;
+    if (location.x > 800+r) location.x = -r;
+    if (location.y > 800+r) location.y = -r;
   }
   
   float mag2(PVector v) {
