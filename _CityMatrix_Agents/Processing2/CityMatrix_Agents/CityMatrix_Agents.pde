@@ -113,6 +113,10 @@ void setup() {
 
 void draw() {
   
+  // background draw
+  background(0);
+  
+  
   // PEV draw
   pgRyan.beginDraw();
   //pgRyan.background(0); 
@@ -134,6 +138,18 @@ void draw() {
   pgRyan.endDraw();
   //image(pgRyan, 0, 0, 1080, 1080);
   
+  
+  // keystone draw
+  //PVector surfaceMouse = surface.getTransformedMouse();
+  pgOffscreen.beginDraw();
+  //pgOffscreen.background(0);
+  pgOffscreen.clear();
+  pgOffscreen.image(pgRyan, 0, 0, resPgOffscreen, resPgOffscreen);
+  pgOffscreen.endDraw();
+  surface.render(pgOffscreen);
+  
+  
+  // main canvas UI draw
   // show frameRate
   //println(frameRate);
   textAlign(RIGHT);
@@ -141,7 +157,7 @@ void draw() {
   fill(200);
   text("frameRate: "+str(int(frameRate)), 1620 - 50, 50);
 
-  // draw scollbars
+  // draw scrollbars
   drawScrollbars();
   targetPEVNum = int(ScrollbarRatioPEVNum*45+5); //5 to 50
   PEVs.changeToTargetNum(targetPEVNum);
@@ -159,17 +175,6 @@ void draw() {
   fill(0);
   text(targetPEVNum, 263, 712);
   text(int(maxSpeedKPH/10), 263, 736);
-  
-  
-  // keystone draw
-  //PVector surfaceMouse = surface.getTransformedMouse();
-  pgOffscreen.beginDraw();
-  //pgOffscreen.background(0);
-  pgOffscreen.clear();
-  pgOffscreen.image(pgRyan, 0, 0, resPgOffscreen, resPgOffscreen);
-  pgOffscreen.endDraw();
-  background(0);
-  surface.render(pgOffscreen);
   
 }
 
