@@ -213,21 +213,21 @@ void draw() {
 }
 
 void mousePressed(){
-  PVector surfaceMouse = surface.getTransformedMouse();
-  newAgent(surfaceMouse.x/2, surfaceMouse.y/2, 2);
-  newAgent(surfaceMouse.x/2, surfaceMouse.y/2, 1);
-  newAgent(surfaceMouse.x/2, surfaceMouse.y/2, 2);
-  newAgent(surfaceMouse.x/2, surfaceMouse.y/2, 1);
-  newAgent(surfaceMouse.x/2, surfaceMouse.y/2, 2);
-  newAgent(surfaceMouse.x/2, surfaceMouse.y/2, 1);
-  newAgent(surfaceMouse.x/2, surfaceMouse.y/2, 2);
-  newAgent(surfaceMouse.x/2, surfaceMouse.y/2, 1);
-  newAgent(surfaceMouse.x/2, surfaceMouse.y/2, 2);
-  newAgent(surfaceMouse.x/2, surfaceMouse.y/2, 1);
-  newAgent(surfaceMouse.x/2, surfaceMouse.y/2, 2);
-  newAgent(surfaceMouse.x/2, surfaceMouse.y/2, 1);
-  newAgent(surfaceMouse.x/2, surfaceMouse.y/2, 2);
-  newAgent(surfaceMouse.x/2, surfaceMouse.y/2, 1);
-  newAgent(surfaceMouse.x/2, surfaceMouse.y/2, 2);
-  newAgent(surfaceMouse.x/2, surfaceMouse.y/2, 1);
+//  PVector surfaceMouse = surface.getTransformedMouse();
+//  newAgent(surfaceMouse.x/2, surfaceMouse.y/2, 2);
+//  newAgent(surfaceMouse.x/2, surfaceMouse.y/2, 1);
+//  newAgent(surfaceMouse.x/2, surfaceMouse.y/2, 2);
+//  newAgent(surfaceMouse.x/2, surfaceMouse.y/2, 1);
+//  newAgent(surfaceMouse.x/2, surfaceMouse.y/2, 2);
+//  newAgent(surfaceMouse.x/2, surfaceMouse.y/2, 1);
+//  newAgent(surfaceMouse.x/2, surfaceMouse.y/2, 2);
+//  newAgent(surfaceMouse.x/2, surfaceMouse.y/2, 1);
+//  newAgent(surfaceMouse.x/2, surfaceMouse.y/2, 2);
+//  newAgent(surfaceMouse.x/2, surfaceMouse.y/2, 1);
+//  newAgent(surfaceMouse.x/2, surfaceMouse.y/2, 2);
+//  newAgent(surfaceMouse.x/2, surfaceMouse.y/2, 1);
+//  newAgent(surfaceMouse.x/2, surfaceMouse.y/2, 2);
+//  newAgent(surfaceMouse.x/2, surfaceMouse.y/2, 1);
+//  newAgent(surfaceMouse.x/2, surfaceMouse.y/2, 2);
+//  newAgent(surfaceMouse.x/2, surfaceMouse.y/2, 1);
 }
