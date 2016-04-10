@@ -4,20 +4,6 @@
 // by "Ryan" Yan Zhang <ryanz@mit.edu>
 // April.9th.2016
 
-// tab main
-PFont myFont;
-PImage img_BG;
-PGraphics pgRyan;
-String roadPtFile;
-int totalPEVNum = 10;
-int targetPEVNum;
-int totalRoadNum;
-float scaleMeterPerPixel = 2.15952; //meter per pixel in processing; meter per mm in rhino
-float ScrollbarRatioPEVNum = 0.12;
-float ScrollbarRatioPEVSpeed = 0.5;
-Roads roads;
-PEVs PEVs;
-boolean drawRoads = false;
 
 // tab PEV
 float maxSpeedKPH = 200.0; //units: kph  20.0 kph
@@ -65,89 +51,7 @@ int spacing = 4;
 
 
 /////////////////////////////////////// tab main ////////////////////////////////////////////////
-void setup() {
 
-  size(800, 800); //1920 x 1920
-  smooth(8); //2,3,4, or 8
-  background(0);
-  
-  setupScrollbars();
-  img_BG = loadImage("MAP_BG_ALL.png");
-  
-  pgRyan = createGraphics(1920, 1920); //the BG size
-  
-//  pgRyan.beginDraw();
-//  pgRyan.background(0); 
-//  pgRyan.smooth(8); //2,3,4, or 8
-
-  // add roads
-  roadPtFile = "RD_151231.txt";
-  roads = new Roads();
-  roads.addRoadsByRoadPtFile(roadPtFile);
-
-  // add PEVs
-  PEVs = new PEVs();
-  PEVs.initiate(totalPEVNum);
-  
-//  pgRyan.endDraw();
-//  image(pgRyan, 0, 0);
-}
-
-void draw() {
-  
-  pgRyan.beginDraw();
-  pgRyan.background(0); 
-  pgRyan.smooth(8); //2,3,4, or 8
-  
-  pgRyan.imageMode(CORNER);
-  
-  pgRyan.image(img_BG, 0, 0, 1920, 1920);
-
-  // draw roads
-  if (drawRoads) {
-    roads.drawRoads();
-  }
-
-  // run PEVs
-  PEVs.run();
-  
-  pgRyan.endDraw();
-  image(pgRyan, 0, 0, width, height);
-  
-  // show frameRate
-  //println(frameRate);
-  textAlign(RIGHT);
-  textSize(10*2);
-  fill(200);
-  text("frameRate: "+str(int(frameRate)), 1620 - 50, 50);
-
-  // draw scollbars
-  drawScrollbars();
-  targetPEVNum = int(ScrollbarRatioPEVNum*45+5); //5 to 50
-  PEVs.changeToTargetNum(targetPEVNum);
-  maxSpeedKPH = (ScrollbarRatioPEVSpeed*20+10)*10; //units: kph  10.0 to 50.0 kph
-  maxSpeedMPS = maxSpeedKPH * 1000.0 / 60.0 / 60.0; //20.0 KPH = 5.55556 MPS
-  maxSpeedPPS = maxSpeedMPS / scaleMeterPerPixel; 
-  fill(255);
-  noStroke();
-  rect(260, 701, 35, 14);
-  rect(260, 726, 35, 14);
-  textAlign(LEFT);
-  textSize(10);
-  fill(200);
-  text("mouseX: "+mouseX+", mouseY: "+mouseY, 10, 20);
-  fill(0);
-  text(targetPEVNum, 263, 712);
-  text(int(maxSpeedKPH/10), 263, 736);
-}
-
-void keyPressed() {
-  switch(key) {
-    case 'r': 
-      drawRoads = !drawRoads;
-      break;
-  }
-}
 
 ///////////////////////////////////////////// tab PEV ////////////////////////////////////////
 class PEV {
