@@ -247,7 +247,10 @@ void draw() {
   //pgOffscreen.background(0);
   pgOffscreen.clear();
   pgOffscreen.image(pgRyan, 0, 0, resPgOffscreen, resPgOffscreen);
-  pgOffscreen.image(pgWaleed, 0, 0, resPgOffscreen, resPgOffscreen); 
+  pgOffscreen.pushMatrix();
+  pgOffscreen.scale(-1.0, 1.0);
+  pgOffscreen.image(pgWaleed, -resPgOffscreen, 0, resPgOffscreen, resPgOffscreen);
+  pgOffscreen.popMatrix();
   pgOffscreen.endDraw();
   surface.render(pgOffscreen);
   
