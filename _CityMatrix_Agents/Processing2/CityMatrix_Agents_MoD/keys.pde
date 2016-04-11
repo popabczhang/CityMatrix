@@ -6,6 +6,12 @@ void keyPressed() {
     case '`':
       MoD = !MoD;
       break;
+    case '=':
+      targetCAR1Num += 5;
+      break;
+    case '-':
+      targetCAR1Num -= 5;
+      break;
     
     // PEV
     case 'r': 

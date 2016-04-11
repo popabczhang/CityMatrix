@@ -483,27 +483,19 @@ class HScrollbar
 ///////////////////////////////////////////// tab CAR1 ////////////////////////////////////////
 class CAR1 {
 
-  //int id; //CAR1 agent id
-  int status; //0 - empty; 1 - psg; 2 - pkg; 3 - psg & pkg
-  //int roadID; //the road the CAR1 is currently on
   Road road; //current road object
   float t; //t location of the current road;
   PVector locationPt; //location coordination on the canvas
   PVector locationTangent;
   float rotation; //rotation in radius on the canvas
   float speedT; //current speed; units: t per frame
-  PImage img_CAR1;
+  PImage img_CAR = loadImage("MAP_CAR.png");
 
   CAR1(Road _road, float _t) {
-    //id = _id;
-    //roadID = _roadID;
-    //road = roads.roads.get(roadID);
     road = _road;
     t = _t;
-    status = 0;
     locationPt = road.getPt(t);
-    speedT = maxSpeedMPS / road.roadLengthMeter / frameRate; //speedT unit: t per frame
-    img_CAR1 = imgs_CAR1.get(int(random(0, imgs_CAR1.size()-1)+0.5));
+    speedT = maxSpeedMPSCAR1 / road.roadLengthMeter / frameRate; //speedT unit: t per frame
   }
 
   void run() {
@@ -511,15 +503,13 @@ class CAR1 {
     move();
 
     getDirection();
-    
-    changeState();
 
     render();
   }
 
   void move() {
     // update the speed according to frameRate
-    speedT = maxSpeedMPS / road.roadLengthMeter / frameRate; //speedT unit: t per frame
+    speedT = maxSpeedMPSCAR1 / road.roadLengthMeter / frameRate; //speedT unit: t per frame
     
     // calc the next step
     t = t + speedT;
@@ -534,7 +524,7 @@ class CAR1 {
       PVector roadEndPt = road.roadPts[road.ptNum-1];
       PVector roadStartPt = road.roadPts[0];
       //int i = 0;
-      for (Road tmpRoad : roads.roads) {
+      for (Road tmpRoad : roadsCAR1.roads) {
         PVector tmpRoadStartPt = tmpRoad.roadPts[0];
         PVector tmpRoadEndPt = tmpRoad.roadPts[tmpRoad.ptNum-1];
         //println("tmpRoad ["+i+"]: ");
@@ -578,14 +568,6 @@ class CAR1 {
     }
   }
   
-  void changeState(){
-    float rnd = random(0.0, 1.0);
-    if (rnd <= stateChangeOdd) {
-      int n = int(random(0, imgs_CAR1.size()-1)+0.5);
-      img_CAR1 = imgs_CAR1.get(n);
-    }
-  }
-
   void render() {
   
     pgRyan.pushMatrix();
@@ -593,9 +575,9 @@ class CAR1 {
     pgRyan.rotate(rotation);
 
     // draw CAR1 img
-    pgRyan.scale(0.3);
-    pgRyan.translate(-img_CAR1.width/2, -img_CAR1.height/2);
-    pgRyan.image(img_CAR1, 0, 0);
+    pgRyan.scale(0.45);
+    pgRyan.translate(-img_CAR.width/2, -img_CAR.height/2);
+    pgRyan.image(img_CAR, 0, 0);
     pgRyan.popMatrix();
     
   }
@@ -606,31 +588,18 @@ class CAR1 {
 class CAR1s {
 
   ArrayList<CAR1> CAR1s;
-  //int currentCAR1ID;
 
   CAR1s() {
     CAR1s = new ArrayList<CAR1>();
-    //currentCAR1ID = 0;
   }
 
   void initiate(int _totalCAR1Num) {
 
-    img_CAR1_EMPTY = loadImage("MAP_CAR1_EMPTY.png");
-    img_CAR1_PSG = loadImage("MAP_CAR1_PSG.png");
-    img_CAR1_PKG = loadImage("MAP_CAR1_PKG.png");
-    img_CAR1_FULL = loadImage("MAP_CAR1_PSG AND PKG.png");
-    imgs_CAR1 = new ArrayList<PImage>();
-    imgs_CAR1.add(img_CAR1_EMPTY);
-    imgs_CAR1.add(img_CAR1_PSG);
-    imgs_CAR1.add(img_CAR1_PKG);
-    imgs_CAR1.add(img_CAR1_FULL);
-
     int totalCAR1Num = _totalCAR1Num;
     for (int i = 0; i < totalCAR1Num; i ++) {
-      int tmpRoadID = int(random(0.0, totalRoadNum-1)+0.5);
-      Road tmpRoad = roads.roads.get(tmpRoadID);
+      int tmpRoadID = int(random(0.0, totalRoadNumCAR1-1)+0.5);
+      Road tmpRoad = roadsCAR1.roads.get(tmpRoadID);
       float t = random(0.0, 0.75);
-      //CAR1 tmpCAR1 = new CAR1(currentCAR1ID, tmpRoadID, t);
       CAR1 tmpCAR1 = new CAR1(tmpRoad, t);
       CAR1s.add(tmpCAR1);
 
@@ -649,8 +618,8 @@ class CAR1s {
   }
 
   void addRandomly() {
-    int tmpRoadID = int(random(0.0, totalRoadNum-1)+0.5);
-    Road tmpRoad = roads.roads.get(tmpRoadID);
+    int tmpRoadID = int(random(0.0, totalRoadNumCAR1-1)+0.5);
+    Road tmpRoad = roadsCAR1.roads.get(tmpRoadID);
     float t = random(0.0, 0.75);
     CAR1 tmpCAR1 = new CAR1(tmpRoad, t);
     CAR1s.add(tmpCAR1);

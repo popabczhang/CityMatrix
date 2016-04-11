@@ -30,7 +30,7 @@ PImage img_BG;
 PGraphics pgRyan;
 String roadPtFile;
 int totalPEVNum = 25;
-int targetPEVNum;
+int targetPEVNum = 25;
 int totalRoadNum;
 float scaleMeterPerPixel = 2.15952; //meter per pixel in processing; meter per mm in rhino
 float ScrollbarRatioPEVNum = 0.5;  //0.12
@@ -40,7 +40,7 @@ PEVs PEVs;
 boolean drawRoads = false;
 
 // tab PEV
-float maxSpeedKPH = 200.0; //units: kph  20.0 kph
+float maxSpeedKPH = 150.0; //units: kph  20.0 kph
 float maxSpeedMPS = maxSpeedKPH * 1000.0 / 60.0 / 60.0; //20.0 KPH = 5.55556 MPS
 float maxSpeedPPS = maxSpeedMPS / scaleMeterPerPixel; 
 float roadConnectionTolerance = 10.0; //pxl; smaller than 1.0 will cause error
@@ -87,13 +87,13 @@ int spacing = 4;
 // CAR1 tab main
 String roadPtFileCAR1;
 int totalCAR1Num = 25;
-int targetCAR1NumCAR1;
+int targetCAR1Num = 25;
 int totalRoadNumCAR1;
 Roads roadsCAR1;
 CAR1s CAR1s;
 
 // tab CAR1
-float maxSpeedKPHCAR1 = 200.0; //units: kph  20.0 kph
+float maxSpeedKPHCAR1 = 150.0; //units: kph  20.0 kph
 float maxSpeedMPSCAR1 = maxSpeedKPHCAR1 * 1000.0 / 60.0 / 60.0; //20.0 KPH = 5.55556 MPS
 float maxSpeedPPSCAR1 = maxSpeedMPSCAR1 / scaleMeterPerPixel;
 
@@ -196,9 +196,11 @@ void draw() {
     
     // run PEVs
     PEVs.run();
+    PEVs.changeToTargetNum(targetPEVNum);
     
     // run CAR1s
     CAR1s.run();
+    CAR1s.changeToTargetNum(targetCAR1Num);
     
   pgRyan.endDraw();
   
@@ -236,7 +238,6 @@ void draw() {
     // draw scrollbars
     drawScrollbars();
     targetPEVNum = int(ScrollbarRatioPEVNum*45+5); //5 to 50
-    PEVs.changeToTargetNum(targetPEVNum);
     maxSpeedKPH = (ScrollbarRatioPEVSpeed*20+10)*10; //units: kph  10.0 to 50.0 kph
     maxSpeedMPS = maxSpeedKPH * 1000.0 / 60.0 / 60.0; //20.0 KPH = 5.55556 MPS
     maxSpeedPPS = maxSpeedMPS / scaleMeterPerPixel; 
