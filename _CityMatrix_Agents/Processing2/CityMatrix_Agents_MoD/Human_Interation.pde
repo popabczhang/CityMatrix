@@ -6,8 +6,8 @@
 
 void newAgent( float x,float y, int _colr) {
   int colr = _colr;
-  float maxspeed = random(0.5,4.0);
-  float maxforce = .01;
+  float maxspeed = random(0.5,1.0);
+  float maxforce = .0001;
   agent.add(new Agent(new PVector(x,y), maxspeed, maxforce, colr));
 }
 
@@ -29,43 +29,44 @@ class Agent{
   
   Agent( PVector l, float ms, float mf, int _k) {
     location = l.get();
-    r = 1.5;
+    r = 3;
     maxspeed = ms;
     maxforce = mf;
-    acceleration = new PVector(0,0);
-    velocity = new PVector(-10, 10);
+    acceleration = new PVector(10,10);
+    velocity = new PVector(10, 10);
     k=_k;
   }
   
   void applyBehaviors(ArrayList agents) {
     agentLoc = pix[(int)abs(location.y%800)*800 + (int)location.x];    
     if (agentLoc == -1){
-        PVector wand = new PVector();
+        PVector s = separate(agents);
+        s.mult(1000);
+        applyForce(s);
+        acceleration.add(s);
+        PVector wand = new PVector(random(0,100),random(0,100));
         wand= wander();
-        wand.mult(5);
+        wand.mult(1000);
         acceleration.add(wand);
-////        PVector go = seek(location);
-////        go.mult(5);
-////        applyForce(go);
-////        acceleration.add(go);
       }
     try{
       if (agentLoc == -16777216){ //-16777216
-        //println(location);
         PVector a = avoid(location);  
-        //println(a.heading());
-        a.mult(10);
+        a.mult(1);
         applyForce(a);
         acceleration.add(a);
-      } 
-      
-      
-    }catch(ArrayIndexOutOfBoundsException e){
+        PVector s = separate(agents);
+        s.mult(1100);
+        applyForce(s);
+        acceleration.add(s);
+        PVector wand = new PVector(random(0,100),random(0,100));
+        wand= wander();
+        wand.mult(1100);
+        acceleration.add(wand);
+      }   
     }
-    PVector s = separate(agents);
-    s.mult(10);
-    applyForce(s);
-    acceleration.add(s);
+    catch(ArrayIndexOutOfBoundsException e){
+      }
   }
   
   void applyForce(PVector force) {
@@ -79,8 +80,8 @@ class Agent{
   }
 
   PVector separate (ArrayList boids) {
-    float desiredseparation = r*7;
-    PVector steer = new PVector(0, 0, 0);
+    float desiredseparation = r*200;
+    PVector steer = new PVector(0, 0);
     int count = 0;
     for (int i = 0 ; i < boids.size(); i++) {
       Agent other = (Agent) boids.get(i);
@@ -112,7 +113,7 @@ class Agent{
     acceleration.mult(0);
   }
   PVector wander() {
-    wdelta += random(-1, 1);
+    wdelta += 1;//random(-1, 1);
     PVector center = location.get();
     center.mult(2.0);
     center.add(location); 
@@ -132,45 +133,31 @@ class Agent{
   }
   
   PVector avoid(PVector target) {
-    PVector steer; 
-    PVector velocity2 = new PVector(velocity.x*sin(r),velocity.y*cos(r));
-    PVector desired = new PVector(0,0);//PVector.sub(target, velocity2); //velocity, target
-    float distance = mag2(desired);
-//    if (distance > 0 && distance < (100)*(100)) {
-      desired.normalize();
-      desired.mult(0);
-      //println
-      //velocity = new PVector(velocity.x*sin(r),velocity.y*cos(r));
-      steer = PVector.sub(desired, velocity);  // desired, velocity
-      //println(acceleration);
-      steer.cross(velocity);
-      steer.add(acceleration);
-      steer.mult(random(1.0,20.0));//steer = PVector.add(steer, rndmV);
-//      newagentLoc = pix[(int)abs(location.y%800)*800 + (int)location.x];
-//      if (newagentLoc == -1){
-//        seek(steer);
-//      }
-//    }
-//    else {
-//      steer = new PVector(0,0);
-//      println("ive been used");
-//      steer = PVector.sub(velocity,desired);
-//      steer.mult(maxspeed);//*100
-//      steer.normalize();
-//    }
-    return steer;
+       PVector steer= new PVector(0,0); 
+   PVector desired = PVector.sub(target, velocity);
+   float distance = mag2(desired);
+   desired.mult(0);
+   PVector nu = PVector.sub(desired, velocity);
+   nu.normalize();
+   nu.div(.0001);
+   steer.add(nu);
+   return steer;
   }
 
   void render() {
  
     if (k==1){
-      pgWaleed.fill(43, 191, 189);
-      pgWaleed.stroke(43, 191, 189);
+      pgWaleed.fill(0,56,225);//43, 191, 189
+      pgWaleed.stroke(0,56,225);
     }
     if (k==2){
-      pgWaleed.fill(255, 74, 74);
-      pgWaleed.stroke(255, 74, 74);
+      pgWaleed.fill(255, 0, 255);//255, 74, 74
+      pgWaleed.stroke(255, 0, 255);
     }
+    if (k==3){
+      pgWaleed.fill(217,231,18);//255, 74, 74
+      pgWaleed.stroke(217,231,18);
+    } 
     
     pgWaleed.pushMatrix();
     pgWaleed.translate(location.x, location.y);

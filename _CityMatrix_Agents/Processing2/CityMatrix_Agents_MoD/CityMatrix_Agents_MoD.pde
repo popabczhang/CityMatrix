@@ -176,20 +176,20 @@ void setup() {
   img.loadPixels();
   pix = img.pixels;
   agent = new ArrayList<Agent>();
-  for (int i = 0; i < 300; i++) {
-    newAgent(559,643,1);
-    //newAgent(351,452,1);
-    newAgent(358,542,1);
-    //newAgent(107,95,1);
-  }
-//    for (int i = 0; i < 1; i++) {
-//    newAgent(557,642,2);
-//    //newAgent(352,450,2);
-//    newAgent(358,540,2);
-//    //newAgent(105,93,2);
-//  }
-  
-  
+  for (int i = 0; i < 100; i++) {
+    newAgent(200,55,3);
+    newAgent(200,95,3);
+    newAgent(400,55,2);
+    newAgent(400,95,3);
+    newAgent(200,255,2);
+    newAgent(200,295,2);
+    newAgent(420,255,2);
+    newAgent(420,295,2);
+    newAgent(200,555,2);
+    newAgent(200,595,2);
+    newAgent(410,555,2);
+    newAgent(410,595,2);
+  } 
 }
 
 void draw() {

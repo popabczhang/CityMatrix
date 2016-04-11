@@ -125,7 +125,7 @@ class PEV {
     pgRyan.rotate(rotation);
 
     // draw PEV img
-    pgRyan.scale(0.3);
+    pgRyan.scale(0.4);
     pgRyan.translate(-img_PEV.width/2, -img_PEV.height/2);
     pgRyan.image(img_PEV, 0, 0);
     pgRyan.popMatrix();
