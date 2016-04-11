@@ -203,6 +203,8 @@ class PEVs {
 
 
 //////////////////////////////////////// tab Road ///////////////////////////////////////
+float canvasScale = 1920.0 / 1000;
+
 class Road {
 
   PVector[] roadPts;
@@ -225,8 +227,8 @@ class Road {
     for (int i = 0; i < ptNum; i++) {
       //println(lines[i]);
       String[] pieces = split(lines[i], ",");
-      float x = float(pieces[0]);
-      float y = float(pieces[1]);
+      float x = float(pieces[0])*canvasScale;
+      float y = float(pieces[1])*canvasScale;
       float z = float(pieces[2]);
       roadPts[i] = new PVector(x, y, z);
     }

@@ -17,8 +17,8 @@ int totalPEVNum = 10;
 int targetPEVNum;
 int totalRoadNum;
 float scaleMeterPerPixel = 2.15952; //meter per pixel in processing; meter per mm in rhino
-float ScrollbarRatioPEVNum = 0.12;
-float ScrollbarRatioPEVSpeed = 0.5;
+float ScrollbarRatioPEVNum = 0.5;  //0.12
+float ScrollbarRatioPEVSpeed = 0.0; //0.5
 Roads roads;
 PEVs PEVs;
 boolean drawRoads = false;
@@ -77,7 +77,8 @@ int w = 102;
 int h = 14;
 int l = 2;
 int spacing = 4;
-boolean showScollbars = false;
+boolean showScollbars = true;
+boolean showBG = true;
 
 // human interation
 color[] pix;
@@ -100,12 +101,12 @@ void setup() {
   
   // PEV setup
   setupScrollbars();
-  img_BG = loadImage("MAP_BG_ALL.png");
+  img_BG = loadImage("MAP_BG_CityMatrix_1920.png");
   
   pgRyan = createGraphics(1920, 1920); //the BG Image size
   
   // add roads
-  roadPtFile = "RD_151231.txt";
+  roadPtFile = "RD_160411.txt";
   roads = new Roads();
   roads.addRoadsByRoadPtFile(roadPtFile);
 
@@ -149,8 +150,10 @@ void draw() {
   
   pgRyan.imageMode(CORNER);
   
-  //pgRyan.image(img_BG, 0, 0, 1920, 1920);
-
+  if (showBG) {
+    pgRyan.image(img_BG, 0, 0, 1920, 1920);
+  }
+  
   // draw roads
   if (drawRoads) {
     roads.drawRoads();

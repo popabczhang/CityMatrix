@@ -7,9 +7,12 @@ void keyPressed() {
       drawRoads = !drawRoads;
       break;
     
-    // scollbar
-    case 'b':
+    // scollbar, BG
+    case '1':
       showScollbars = !showScollbars;
+      break;
+    case '2':
+      showBG = !showBG;
       break;
       
     // keystone
