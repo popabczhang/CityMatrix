@@ -106,7 +106,7 @@ void setup() {
   pgRyan = createGraphics(1920, 1920); //the BG Image size
   
   // add roads
-  roadPtFile = "RD_160411.txt";
+  roadPtFile = "RD_160411_CAR2.txt";
   roads = new Roads();
   roads.addRoadsByRoadPtFile(roadPtFile);
 
