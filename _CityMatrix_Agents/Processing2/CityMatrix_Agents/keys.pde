@@ -2,9 +2,14 @@
 void keyPressed() {
   switch(key) {
     
-    //PEV
+    // PEV
     case 'r': 
       drawRoads = !drawRoads;
+      break;
+    
+    // scollbar
+    case 'b':
+      showScollbars = !showScollbars;
       break;
       
     // keystone

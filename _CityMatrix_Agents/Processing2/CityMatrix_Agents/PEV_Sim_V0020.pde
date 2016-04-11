@@ -358,8 +358,10 @@ void setupScrollbars() {
   //for (int i = 0; i < hs.length; i++) {
   //  hs[i] = new HScrollbar(x, y + i*(h+spacing), w, h, l);
   //}
-  hs[0] = new HScrollbar(156, 708, w, h, l);
-  hs[1] = new HScrollbar(156, 732, w, h, l);
+//  hs[0] = new HScrollbar(156, 708, w, h, l);
+//  hs[1] = new HScrollbar(156, 732, w, h, l);
+  hs[0] = new HScrollbar(156+400, 708, w, h, l);
+  hs[1] = new HScrollbar(156+400, 732, w, h, l);
 
   hs[0].setPos(ScrollbarRatioPEVNum);
   hs[1].setPos(ScrollbarRatioPEVSpeed);

@@ -77,6 +77,7 @@ int w = 102;
 int h = 14;
 int l = 2;
 int spacing = 4;
+boolean showScollbars = false;
 
 // human interation
 color[] pix;
@@ -148,7 +149,7 @@ void draw() {
   
   pgRyan.imageMode(CORNER);
   
-  pgRyan.image(img_BG, 0, 0, 1920, 1920);
+  //pgRyan.image(img_BG, 0, 0, 1920, 1920);
 
   // draw roads
   if (drawRoads) {
@@ -184,31 +185,33 @@ void draw() {
   
   
   // main canvas UI draw
-  // show frameRate
-  //println(frameRate);
-  textAlign(RIGHT);
-  textSize(10*2);
-  fill(200);
-  text("frameRate: "+str(int(frameRate)), 1620 - 50, 50);
-
-  // draw scrollbars
-  drawScrollbars();
-  targetPEVNum = int(ScrollbarRatioPEVNum*45+5); //5 to 50
-  PEVs.changeToTargetNum(targetPEVNum);
-  maxSpeedKPH = (ScrollbarRatioPEVSpeed*20+10)*10; //units: kph  10.0 to 50.0 kph
-  maxSpeedMPS = maxSpeedKPH * 1000.0 / 60.0 / 60.0; //20.0 KPH = 5.55556 MPS
-  maxSpeedPPS = maxSpeedMPS / scaleMeterPerPixel; 
-  fill(255);
-  noStroke();
-  rect(260, 701, 35, 14);
-  rect(260, 726, 35, 14);
-  textAlign(LEFT);
-  textSize(10);
-  fill(200);
-  text("mouseX: "+mouseX+", mouseY: "+mouseY, 10, 20);
-  fill(0);
-  text(targetPEVNum, 263, 712);
-  text(int(maxSpeedKPH/10), 263, 736);
+  if (showScollbars) {
+    // show frameRate
+    //println(frameRate);
+    textAlign(RIGHT);
+    textSize(10*2);
+    fill(200);
+    text("frameRate: "+str(int(frameRate)), 1620 - 50, 50);
+  
+    // draw scrollbars
+    drawScrollbars();
+    targetPEVNum = int(ScrollbarRatioPEVNum*45+5); //5 to 50
+    PEVs.changeToTargetNum(targetPEVNum);
+    maxSpeedKPH = (ScrollbarRatioPEVSpeed*20+10)*10; //units: kph  10.0 to 50.0 kph
+    maxSpeedMPS = maxSpeedKPH * 1000.0 / 60.0 / 60.0; //20.0 KPH = 5.55556 MPS
+    maxSpeedPPS = maxSpeedMPS / scaleMeterPerPixel; 
+    fill(255);
+    noStroke();
+    rect(260+400, 701, 35, 14);
+    rect(260+400, 726, 35, 14);
+    textAlign(LEFT);
+    textSize(10);
+    fill(200);
+    text("mouseX: "+mouseX+", mouseY: "+mouseY, 10, 20);
+    fill(0);
+    text(targetPEVNum, 263+400, 712);
+    text(int(maxSpeedKPH/10), 263+400, 736);
+  }
   
 }
 
