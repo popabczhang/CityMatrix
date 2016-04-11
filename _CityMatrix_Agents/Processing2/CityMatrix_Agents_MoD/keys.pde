@@ -12,6 +12,18 @@ void keyPressed() {
     case '-':
       targetCAR1Num -= 5;
       break;
+    case ']':
+      targetCAR2Num += 5;
+      break;
+    case '[':
+      targetCAR2Num -= 5;
+      break;
+    case '\'':
+      targetPEVNum += 5;
+      break;
+    case ';':
+      targetPEVNum -= 5;
+      break;
     
     // PEV
     case 'r': 

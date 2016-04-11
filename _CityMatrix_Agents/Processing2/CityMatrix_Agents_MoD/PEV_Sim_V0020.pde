@@ -44,7 +44,9 @@ class PEV {
     
     changeState();
 
-    render();
+    if (MoD) {
+      render();
+    }
   }
 
   void move() {
@@ -503,8 +505,10 @@ class CAR1 {
     move();
 
     getDirection();
-
-    render();
+    
+    if (!MoD) {
+      render();
+    }
   }
 
   void move() {
@@ -633,6 +637,171 @@ class CAR1s {
   void changeToTargetNum(int _targetNum) {
     int tn = _targetNum;
     int cn = CAR1s.size();
+    if (cn>tn) {
+      removeRandomly();
+    } else if (cn<tn) {
+      addRandomly();
+    }
+  }
+}
+
+
+
+///////////////////////////////////////////// tab CAR2 ////////////////////////////////////////
+class CAR2 {
+
+  Road road; //current road object
+  float t; //t location of the current road;
+  PVector locationPt; //location coordination on the canvas
+  PVector locationTangent;
+  float rotation; //rotation in radius on the canvas
+  float speedT; //current speed; units: t per frame
+  PImage img_CAR = loadImage("MAP_CAR.png");
+
+  CAR2(Road _road, float _t) {
+    road = _road;
+    t = _t;
+    locationPt = road.getPt(t);
+    speedT = maxSpeedMPSCAR2 / road.roadLengthMeter / frameRate; //speedT unit: t per frame
+  }
+
+  void run() {
+
+    move();
+
+    getDirection();
+    
+    if (MoD) {
+      render();
+    }
+  }
+
+  void move() {
+    // update the speed according to frameRate
+    speedT = maxSpeedMPSCAR2 / road.roadLengthMeter / frameRate; //speedT unit: t per frame
+    
+    // calc the next step
+    t = t + speedT;
+    
+    // if at end of road
+    if (t + speedT > 1.0) {
+      // simple test on one road
+      //speedT = -speedT;
+
+      // looking for all next road connected
+      ArrayList<Road> nextRoads = new ArrayList<Road>();
+      PVector roadEndPt = road.roadPts[road.ptNum-1];
+      PVector roadStartPt = road.roadPts[0];
+      //int i = 0;
+      for (Road tmpRoad : roadsCAR2.roads) {
+        PVector tmpRoadStartPt = tmpRoad.roadPts[0];
+        PVector tmpRoadEndPt = tmpRoad.roadPts[tmpRoad.ptNum-1];
+        //println("tmpRoad ["+i+"]: ");
+        //println("PVector.dist(roadEndPt, tmpRoadStartPt) = "+PVector.dist(roadEndPt, tmpRoadStartPt));
+        //println("PVector.dist(roadStartPt, tmpRoadEndPt) = "+PVector.dist(roadStartPt, tmpRoadEndPt));
+        if (PVector.dist(roadEndPt, tmpRoadStartPt) <= roadConnectionTolerance) {
+          //println("pass if 01");
+          if (PVector.dist(roadStartPt, tmpRoadEndPt) > roadConnectionTolerance) {
+            //println("pass if 02");
+            nextRoads.add(tmpRoad);
+          }
+        }
+        //i ++;
+      }
+      //println("find: "+nextRoads.size());
+
+      // pick one next road
+      if (nextRoads.size() <= 0) {
+        println("ERROR: CAN NOT FIND NEXT ROAD!" + 
+          "THERE MUST BE DEADEND ROAD! CHECK ROAD RHINO FILE OR ROAD PT DATA TXT");
+      }
+      int n = int(random(0, nextRoads.size()-1)+0.5); //int(0.7) = 0, so need +0.5
+      //println("n = "+n+"; nextRoads.size()-1 = "+str(nextRoads.size()-1)
+      //  +"; random(0, nextRoads.size()-1) = "+str(random(0, nextRoads.size()-1)));
+      //println("t = "+t);
+      Road nextRoad = nextRoads.get(n);
+
+      // switch current road to next road
+      road = nextRoad; 
+      t = 0.0;
+    }
+  }
+
+  void getDirection() {
+    // get rotation
+    locationPt = road.getPt(t);
+    locationTangent = road.getTangentVector(t);
+    rotation = PVector.angleBetween(new PVector(1.0, 0.0, 0.0), locationTangent);
+    if (locationTangent.y < 0) {
+      rotation = -rotation;
+    }
+  }
+  
+  void render() {
+  
+    pgRyan.pushMatrix();
+    pgRyan.translate(locationPt.x, locationPt.y);
+    pgRyan.rotate(rotation);
+
+    // draw CAR2 img
+    pgRyan.scale(0.45);
+    pgRyan.translate(-img_CAR.width/2, -img_CAR.height/2);
+    pgRyan.image(img_CAR, 0, 0);
+    pgRyan.popMatrix();
+    
+  }
+}
+
+
+//////////////////////////////////////// tab CAR2s //////////////////////////////////////////
+class CAR2s {
+
+  ArrayList<CAR2> CAR2s;
+
+  CAR2s() {
+    CAR2s = new ArrayList<CAR2>();
+  }
+
+  void initiate(int _totalCAR2Num) {
+
+    int totalCAR2Num = _totalCAR2Num;
+    for (int i = 0; i < totalCAR2Num; i ++) {
+      int tmpRoadID = int(random(0.0, totalRoadNumCAR2-1)+0.5);
+      Road tmpRoad = roadsCAR2.roads.get(tmpRoadID);
+      float t = random(0.0, 0.75);
+      CAR2 tmpCAR2 = new CAR2(tmpRoad, t);
+      CAR2s.add(tmpCAR2);
+
+    }
+
+  }
+
+  void run() {
+    for (CAR2 CAR2 : CAR2s) {
+      CAR2.run();
+    }
+  }
+
+  void addCAR2(CAR2 _CAR2) {
+    CAR2s.add(_CAR2);
+  }
+
+  void addRandomly() {
+    int tmpRoadID = int(random(0.0, totalRoadNumCAR2-1)+0.5);
+    Road tmpRoad = roadsCAR2.roads.get(tmpRoadID);
+    float t = random(0.0, 0.75);
+    CAR2 tmpCAR2 = new CAR2(tmpRoad, t);
+    CAR2s.add(tmpCAR2);
+  }
+
+  void removeRandomly() {
+    int n = int(random(0, CAR2s.size()-1));
+    CAR2s.remove(n);
+  }
+
+  void changeToTargetNum(int _targetNum) {
+    int tn = _targetNum;
+    int cn = CAR2s.size();
     if (cn>tn) {
       removeRandomly();
     } else if (cn<tn) {

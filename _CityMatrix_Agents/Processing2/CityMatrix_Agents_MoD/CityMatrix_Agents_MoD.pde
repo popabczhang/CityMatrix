@@ -9,8 +9,8 @@ import deadpixel.keystone.*;
 
 
 // main
-boolean showScollbars = true;
-boolean showBG = true;
+boolean showScollbars = false;
+boolean showBG = false;
 boolean MoD = false;
 
 // keystone
@@ -29,18 +29,18 @@ PFont myFont;
 PImage img_BG;
 PGraphics pgRyan;
 String roadPtFile;
-int totalPEVNum = 25;
-int targetPEVNum = 25;
+int totalPEVNum = 15;
+int targetPEVNum = 15;
 int totalRoadNum;
 float scaleMeterPerPixel = 2.15952; //meter per pixel in processing; meter per mm in rhino
-float ScrollbarRatioPEVNum = 0.5;  //0.12
+float ScrollbarRatioPEVNum = 0.15;  //0.12
 float ScrollbarRatioPEVSpeed = 0.0; //0.5
 Roads roads;
 PEVs PEVs;
 boolean drawRoads = false;
 
 // tab PEV
-float maxSpeedKPH = 150.0; //units: kph  20.0 kph
+float maxSpeedKPH = 75.0; //units: kph  20.0 kph
 float maxSpeedMPS = maxSpeedKPH * 1000.0 / 60.0 / 60.0; //20.0 KPH = 5.55556 MPS
 float maxSpeedPPS = maxSpeedMPS / scaleMeterPerPixel; 
 float roadConnectionTolerance = 10.0; //pxl; smaller than 1.0 will cause error
@@ -86,8 +86,8 @@ int spacing = 4;
 
 // CAR1 tab main
 String roadPtFileCAR1;
-int totalCAR1Num = 25;
-int targetCAR1Num = 25;
+int totalCAR1Num = 10;
+int targetCAR1Num = 10;
 int totalRoadNumCAR1;
 Roads roadsCAR1;
 CAR1s CAR1s;
@@ -97,9 +97,19 @@ float maxSpeedKPHCAR1 = 150.0; //units: kph  20.0 kph
 float maxSpeedMPSCAR1 = maxSpeedKPHCAR1 * 1000.0 / 60.0 / 60.0; //20.0 KPH = 5.55556 MPS
 float maxSpeedPPSCAR1 = maxSpeedMPSCAR1 / scaleMeterPerPixel;
 
-// tab CAR1s
-PImage img_CAR1;
-ArrayList<PImage> imgs_CAR1;
+
+// CAR2 tab main
+String roadPtFileCAR2;
+int totalCAR2Num = 5;
+int targetCAR2Num = 5;
+int totalRoadNumCAR2;
+Roads roadsCAR2;
+CAR2s CAR2s;
+
+// tab CAR2
+float maxSpeedKPHCAR2 = 150.0; //units: kph  20.0 kph
+float maxSpeedMPSCAR2 = maxSpeedKPHCAR2 * 1000.0 / 60.0 / 60.0; //20.0 KPH = 5.55556 MPS
+float maxSpeedPPSCAR2 = maxSpeedMPSCAR2 / scaleMeterPerPixel;
 
 
 // human interation
@@ -146,6 +156,18 @@ void setup() {
   // add CAR1s
   CAR1s = new CAR1s();
   CAR1s.initiate(totalCAR1Num);
+  
+  
+  // CAR2 setup
+  
+  // add roadsCAR2
+  roadPtFileCAR2 = "RD_160411_CAR2.txt";
+  roadsCAR2 = new Roads();
+  roadsCAR2.addRoadsByRoadPtFile(roadPtFileCAR2);
+
+  // add CAR2s
+  CAR2s = new CAR2s();
+  CAR2s.initiate(totalCAR2Num);
   
   
   // Human Interation setup
@@ -201,6 +223,10 @@ void draw() {
     // run CAR1s
     CAR1s.run();
     CAR1s.changeToTargetNum(targetCAR1Num);
+    
+    // run CAR2s
+    CAR2s.run();
+    CAR2s.changeToTargetNum(targetCAR2Num);
     
   pgRyan.endDraw();
   
