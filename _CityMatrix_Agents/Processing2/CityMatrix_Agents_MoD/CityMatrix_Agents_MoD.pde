@@ -5,8 +5,7 @@
 // April.9th.2016
 
 
-import deadpixel.keystone.*;
-
+import deadpixel.keystone.*; //KeyStone
 
 // main
 boolean showScollbars = false;
@@ -118,6 +117,10 @@ ArrayList<Agent> agent;
 PGraphics pgWaleed;
 
 void setup() {
+  
+  
+  // UDP
+  initUDP();
   
   // main canvas setup
   size(1920, 1080, P3D); //projection res to be fullscreen
