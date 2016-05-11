@@ -5,7 +5,7 @@ dockID	-1
 dockRotation	0
 slider1	0.32
 toggle1	0
-toggle2	0
+toggle2	1
 toggle3	0
 1	15	0	0
 6	15	1	0
