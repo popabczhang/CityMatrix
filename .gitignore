@@ -49,6 +49,11 @@ Temporary Items
 *.rhl
 
 
+# =========================
+# Unity3D
+# =========================
+
+
 /[Ll]ibrary/
 /[Tt]emp/
 /[Oo]bj/
@@ -68,11 +73,6 @@ ExportedObj/
 *.pidb
 *.booproj
 *.svd
-
-
-# =========================
-# Unity3D
-# =========================
 
 # Unity3D generated meta files
 *.pidb.meta
